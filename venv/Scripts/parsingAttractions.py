@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from unidecode import unidecode
+from unicodedata import *
 from bs4 import BeautifulSoup
 import requests
 import re
@@ -41,7 +44,7 @@ def get_links(id):
     r = re.compile(pattern)
     results = r.findall(string)
 
-    # 추천 맛집 string 정리
+    # id list return
     it = iter(results)
     list = []
     while True:
@@ -56,54 +59,46 @@ def get_links(id):
     return list
 
 def get_content(link):
-    r = requests.get("https://www.tripadvisor.com/Attractions-" + link)
+    r = requests.get("https://www.tripadvisor.com/Attraction_Review-" + link)
     soup = BeautifulSoup(r.text, "html.parser")
     string = ""
     for item in soup.find_all('script'):
         string = string + str(item.find_all(text=True))
 
-    print(soup)
-'''
-    abs_link = "https://www.siksinhot.com/P/" + link
-    r = requests.get(abs_link)
-    soup = BeautifulSoup(r.text, "html.parser")
-    string = ""
-    for item in soup.find_all('script'):
-        string = string + str(item.find_all(text=True))
+    string = unidecode(string)
 
-    # 상호명 parsing
-    patten = "\"pname\":\"[^\"]+"
+
+    # name parsing
+    patten = "{\"data\":{\"name\":\"[^\"]+"
     r = re.compile(patten)
     results = r.findall(string)
     pname = results[0]
-    pname = pname[9:]
-    # 주소 parsing
-    patten = "\"addr\":\"[^\"]+"
+    pname = pname[17:]
+
+    # description parsing
+    patten = "\"description\":{\"text\":\"[^\"]+"
     r = re.compile(patten)
     results = r.findall(string)
-    addr = results[0]
-    addr = addr[8:]
 
+    if(len(results) == 0):
+        description = ""
+    else:
+        description = results[0]
+        description = description[23:]
 
-    # 전화번호 parsing
-    patten = "phone_number\",\"content\":\"[^\"]+"
-    r = re.compile(patten)
-    results = r.findall(string)
-    phone_number = " X "
-    if len(results) != 0:
-        phone_number = results[0]
-        phone_number = phone_number[25:]
+    sentence = pname +".\t"+ description
 
-
-    return "\"" + loc + "의 $hotplace-kind 맛집은 " + pname + " 입니다. " + pname + "의 주소는 " + addr + " 입니다. 전화번호는 " + phone_number + " 입니다. \n 다른 음식 추천을 원하시면 다시 음식 종류를 말해주시고 종료를 원하시면 취소를 말씀해주세요.\",\n"
-    '''
+    # removing unicode in sentence
+    
+    print(sentence)
+    return sentence
 
 if __name__=='__main__':
-    id = input("id : ")
+    id = 'g187870' #input("id : ")
     start_time = time.time()
     pool = Pool(processes=16) # 4개의 프로세스를 사용합니다.
     result = pool.map(get_content, get_links(id))
-    #print(result)
+    print(result)
     print("--- %s seconds ---" % (time.time() - start_time))
 
 '''
