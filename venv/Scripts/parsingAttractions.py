@@ -76,7 +76,7 @@ def get_content(link):
     pname = pname[17:]
 
     # description parsing
-    patten = "\"description\":{\"text\":\"[^\"]+"
+    patten = "\"description\":{\"text\":\".*?\",\""
     r = re.compile(patten)
     results = r.findall(string)
 
@@ -84,19 +84,22 @@ def get_content(link):
         description = ""
     else:
         description = results[0]
-        description = description[23:]
+        description = description[23:-3]
 
-    sentence = pname +".\t"+ description
+    #print(description)
+    sentence = pname + "  " + description
+
+    suffix = "Say \'Attractions\' If you want more attractions or Say cancel.";
+    sentence = "\"" + pname + ".\n" + description + "\n" + suffix + "\",\n"
 
     # removing unicode in sentence
-    
-    print(sentence)
+
     return sentence
 
 if __name__=='__main__':
     id = 'g187870' #input("id : ")
     start_time = time.time()
-    pool = Pool(processes=16) # 4개의 프로세스를 사용합니다.
+    pool = Pool(processes=16)
     result = pool.map(get_content, get_links(id))
     print(result)
     print("--- %s seconds ---" % (time.time() - start_time))
