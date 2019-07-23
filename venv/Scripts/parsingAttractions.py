@@ -13,6 +13,7 @@ import pathlib
 import time
 from multiprocessing import Pool
 from urllib.request import urlopen
+import plistlib
 
 start = time.time()
 
@@ -84,16 +85,13 @@ def get_content(link):
         description = ""
     else:
         description = results[0]
-        description = description[23:-3]
+        description = description[23:-3]+"\n"
 
     #print(description)
     sentence = pname + "  " + description
 
     suffix = "Say \'Attractions\' If you want more attractions or Say cancel.";
-    sentence = "\"" + pname + ".\n" + description + "\n" + suffix + "\",\n"
-
-    # removing unicode in sentence
-
+    sentence = "\"" + pname + ".\n" + description + suffix + "\",\n"
     return sentence
 
 if __name__=='__main__':
@@ -101,8 +99,21 @@ if __name__=='__main__':
     start_time = time.time()
     pool = Pool(processes=16)
     result = pool.map(get_content, get_links(id))
-    print(result)
+
+    # removing unicode in result sentence
+    for i in range(0,len(result)):
+        data = result[i]
+        data = data.encode('utf-8')
+        data = data.decode('unicode_escape')
+        data = data.encode('utf-8')
+        data = data.decode('unicode_escape')
+        if i == len(result)-1:
+            data = data[:-2]
+        print(data)
+
+
     print("--- %s seconds ---" % (time.time() - start_time))
+
 
 '''
 # 기본 파일에 위치, 추천 맛집 텍스트 넣기
