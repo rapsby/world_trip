@@ -11,11 +11,16 @@ import time
 from multiprocessing import Pool
 from urllib.request import urlopen
 
-url = 'https://www.tripadvisor.com/Attraction_Review-g187870-d194251'
+url = 'https://www.tripadvisor.com/Attraction_Review-g187147'
 r = requests.get(url)
 soup = BeautifulSoup(r.text, "html.parser")
 string = ""
 for item in soup.find_all('script'):
     string = string + str(item.find_all(text=True))
+patten = "\"EntryGeo\",\"value\":\".*?-"
+r = re.compile(patten)
+results = r.findall(string)
+location = results[0]
+location = location[20:-1]
 
-print(string)
+print(location)

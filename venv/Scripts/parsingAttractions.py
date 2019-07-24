@@ -14,24 +14,12 @@ import time
 from multiprocessing import Pool
 from urllib.request import urlopen
 import plistlib
+import codecs
+
 
 start = time.time()
 
-text = ""
-
-loc ="default"# = "1" #input("위치 : ")
-upHpAreaId = 2
-hpAreaId = ""# = 1026 #input("AreaId : ")
-
-intent_file = 'C:/Users/k/Desktop/trip_json/Attractions.json'
-baseintent_file = 'C:/Users/k/Desktop/trip_json/original/Attractions.json'
-deploy_file = 'C:/Users/k/Desktop/trip_json/en.xlf'
-basedeploy_file = 'C:/Users/k/Desktop/trip_json/original/en.xlf'
-shutil.copy(baseintent_file, intent_file)
-
-
-
-def get_links(id):
+def get_links(link):
     print("link")
 
     r = requests.get("https://www.tripadvisor.com/Attractions-"+id)
@@ -85,17 +73,39 @@ def get_content(link):
         description = ""
     else:
         description = results[0]
-        description = description[23:-3]+"\n"
+        description = description[23:-3]
+
 
     #print(description)
     sentence = pname + "  " + description
 
-    suffix = "Say \'Attractions\' If you want more attractions or Say cancel.";
-    sentence = "\"" + pname + ".\n" + description + suffix + "\",\n"
+    suffix = " Say \'Attractions\' If you want more attractions or Say cancel.";
+    sentence = pname + ". " + description + suffix
     return sentence
 
 if __name__=='__main__':
-    id = 'g187870' #input("id : ")
+
+    intent_file = 'C:/Users/k/Desktop/trip_json/Attractions.json'
+    baseintent_file = 'C:/Users/k/Desktop/trip_json/original/Attractions.json'
+    deploy_file = 'C:/Users/k/Desktop/trip_json/en.xlf'
+    basedeploy_file = 'C:/Users/k/Desktop/trip_json/original/en.xlf'
+    shutil.copy(baseintent_file, intent_file)
+
+    attractions = ""
+    link = input("link : ")
+    patten = "Attractions-.*?-"
+    r = re.compile(patten)
+    results = r.findall(link)
+    id = results[0]
+    id = id[12:-1]
+    print(id)
+    patten = "true-.*?_"
+    r = re.compile(patten)
+    results = r.findall(link)
+    location = results[0]
+    location = location[5:-1]
+    print(location)
+
     start_time = time.time()
     pool = Pool(processes=16)
     result = pool.map(get_content, get_links(id))
@@ -103,50 +113,51 @@ if __name__=='__main__':
     # removing unicode in result sentence
     for i in range(0,len(result)):
         data = result[i]
+
         data = data.encode('utf-8')
         data = data.decode('unicode_escape')
         data = data.encode('utf-8')
         data = data.decode('unicode_escape')
-        if i == len(result)-1:
-            data = data[:-2]
-        print(data)
+        data = str.replace(data, "\"", "\\\"")
+        attractions += "\"" + data + "\"" + "\n"
+        if i != len(result) - 1:
+            attractions += ","
+
+        #print(attractions)
+
+    # intent 파일에 텍스트 넣기
+    fileObj = codecs.open(baseintent_file, "r", "utf-8")
+    u = fileObj.readlines()
+    text = ""
+    for i in u:
+        i = i.replace("$location$", location)
+        i = i.replace("$attraction$", attractions)
+        text += i + '\n'
+
+    fw = codecs.open(intent_file, 'w', 'utf8')
+    fw.write(text)
+    fw.close()
+
+    # en.xlf 파일 수정해서 압축파일 만들기
+    fileObj = codecs.open(basedeploy_file, "r", "utf-8")
+    u = fileObj.readlines()
+    text = ""
+    for i in u:
+        i = i.replace("$location$", location)
+        text += i + '\n'
+
+    fw = codecs.open(deploy_file, 'w', 'utf8')
+    fw.write(text)
+    fw.close()
+
+    # 압축
+    os.chdir("C:/Users/k/Desktop/trip_json")
+    import zipfile
+
+    with zipfile.ZipFile('namespace.zip', mode='w') as f:
+        f.write('en.xlf', compress_type=zipfile.ZIP_DEFLATED)
+
 
 
     print("--- %s seconds ---" % (time.time() - start_time))
 
-
-'''
-# 기본 파일에 위치, 추천 맛집 텍스트 넣기
-import codecs
-fileObj = codecs.open(basefile, "r", "utf-8" )
-u = fileObj.readlines()
-text = ""
-for i in u :
-    i = i.replace("ㅁㅈㅇㅊ", loc)
-    i = i.replace("ㄹㅋㅇㅅ", str)
-    text += i+'\n'
-
-fw = codecs.open(file, 'w', 'utf8')
-fw.write(text)
-fw.close()
-
-
-
-# ko.xlf 파일 수정해서 압축파일 만들기
-fileObj = codecs.open(basedeploy_file, "r", "utf-8" )
-u = fileObj.readlines()
-text = ""
-for i in u :
-    i = i.replace("_destination_", loc)
-    text += i+'\n'
-
-fw = codecs.open(deploy_file, 'w', 'utf8')
-fw.write(text)
-fw.close()
-
-# 압축
-os.chdir("C:/Users/k/Desktop/trip_json")
-import zipfile
-with zipfile.ZipFile('namespace.zip', mode='w') as f:
-    f.write('en.xlf', compress_type=zipfile.ZIP_DEFLATED)
-'''
