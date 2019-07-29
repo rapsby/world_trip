@@ -7,20 +7,17 @@ import re
 import shutil
 import json
 import os
-from collections import OrderedDict
-from pprint import pprint
 import pathlib
 import time
 from multiprocessing import Pool
-from urllib.request import urlopen
-import plistlib
 import codecs
+
 
 
 start = time.time()
 
 def get_links(link):
-    print("link")
+    print("link..........")
 
     r = requests.get("https://www.tripadvisor.com/Attractions-"+id)
     soup = BeautifulSoup(r.text, "html.parser")
@@ -65,19 +62,21 @@ def get_content(link):
     pname = pname[17:]
 
     # description parsing
-    patten = "\"description\":{\"text\":\".*?\",\""
+    patten = "\"truncatedDescription\":{\"text\":\".*?\",\""
     r = re.compile(patten)
     results = r.findall(string)
-
-    if(len(results) == 0):
-        description = ""
+    if (len(results) == 0):
+        patten = "\"description\":{\"text\":\".*?\",\""
+        r = re.compile(patten)
+        results = r.findall(string)
+        if (len(results) == 0):
+            description = ""
+        else:
+            description = results[0]
+            description = description[23:-3]
     else:
         description = results[0]
-        description = description[23:-3]
-
-
-    #print(description)
-    sentence = pname + "  " + description
+        description = description[32:-3]
 
     suffix = " Say \'Attractions\' If you want more attractions or Say cancel.";
     sentence = pname + ". " + description + suffix
@@ -93,17 +92,25 @@ if __name__=='__main__':
 
     attractions = ""
     link = input("link : ")
-    patten = "Attractions-.*?-"
+    patten = "Home-.*"
     r = re.compile(patten)
     results = r.findall(link)
     id = results[0]
-    id = id[12:-1]
+    id = id[5:12]
     print(id)
-    patten = "true-.*?_"
+
+    url = 'https://www.tripadvisor.com/Home-'
+    string = ""
+    r = requests.get(url + id)
+    soup = BeautifulSoup(r.text, "html.parser")
+    for item in soup.find_all('script'):
+        string = string + str(item.find_all(text=True))
+    patten = "\"EntryGeo\",\"value\":\".*?-"
     r = re.compile(patten)
-    results = r.findall(link)
+    results = r.findall(string)
     location = results[0]
-    location = location[5:-1]
+    location = location[20:-1]
+
     print(location)
 
     start_time = time.time()
