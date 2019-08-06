@@ -15,16 +15,22 @@ url = 'https://www.tripadvisor.com/Attraction_Review-g189158-d195318-Reviews-Mos
 url ='https://www.tripadvisor.com/Attractions-g187147-Activities-c26-Paris_Ile_de_France.html'
 url ='https://www.tripadvisor.com/Hotels-g187147-Paris_Ile_de_France-Hotels.html'
 url = 'https://www.tripadvisor.com/Attraction_Review-g187147-d188150-Reviews-Musee_d_Orsay-Paris_Ile_de_France.html'
+url = "https://www.tripadvisor.com/Attractions-" + "g187147" + "-Activities-c26"
+
 r = requests.get(url)
 soup = BeautifulSoup(r.text, "html.parser")
 string = ""
 for item in soup.find_all('script'):
     string = string + str(item.find_all(text=True))
-#print(string)
+print(string)
 
-img = soup.find_all("img")
-img = img[3]
-print(img.get("data-lazyurl"))
+
+img = soup.find_all(class_="ui_column is-12")
+for a in img:
+    print(a)
+    print("\n\n")
+#img = img[3]
+#print(img.get("data-lazyurl"))
 '''
 pattern = "\"LocationInformation\",\"locationId\":[^}]+"
 r = re.compile(pattern)
