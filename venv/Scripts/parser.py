@@ -25,11 +25,11 @@ def get_links(link):
     for item in soup.find_all('script'):
         string = string + str(item.find_all(text=True))
 
-
     # id parsing
     pattern = "distanceToGeo\":0},{\"id\":[^,]+"
     r = re.compile(pattern)
     results = r.findall(string)
+
 
     # id list return
     it = iter(results)
@@ -46,13 +46,12 @@ def get_links(link):
     return list
 
 def get_content(link):
-    r = requests.get("https://www.tripadvisor.com/Attraction_Review-" + link)
+    url = "https://www.tripadvisor.com/Attraction_Review-" + link
+    r = requests.get(url)
     soup = BeautifulSoup(r.text, "html.parser")
     string = ""
     for item in soup.find_all('script'):
         string = string + str(item.find_all(text=True))
-
-    string = unidecode(string)
 
 
     # name parsing
@@ -62,26 +61,17 @@ def get_content(link):
     pname = results[0]
     pname = pname[17:]
 
-    # description parsing
-    patten = "\"truncatedDescription\":{\"text\":\".*?\",\""
-    r = re.compile(patten)
-    results = r.findall(string)
-    if (len(results) == 0):
-        patten = "\"description\":{\"text\":\".*?\",\""
-        r = re.compile(patten)
-        results = r.findall(string)
-        if (len(results) == 0):
-            description = ""
-        else:
-            description = results[0]
-            description = description[23:-3]
-    else:
-        description = results[0]
-        description = description[32:-3]
+    # img url
+    img = soup.find_all("img")
+    img = img[3]
+    img_url = img.get("data-lazyurl")
 
-    suffix = " Say \'Attractions\' If you want more attractions or Say cancel.";
-    sentence = pname + ". " + description + suffix
-    return sentence
+    dic = {
+        'name':pname,
+        'url':url,
+        'img_url':img_url
+    }
+    return dic
 
 if __name__=='__main__':
 
@@ -117,7 +107,9 @@ if __name__=='__main__':
     start_time = time.time()
     pool = Pool(processes=16)
     result = pool.map(get_content, get_links(id))
+    print(result[0])
 
+'''
     # removing unicode in result sentence
     for i in range(0,len(result)):
         data = result[i]
@@ -169,3 +161,4 @@ if __name__=='__main__':
 
     print("--- %s seconds ---" % (time.time() - start_time))
 
+'''
