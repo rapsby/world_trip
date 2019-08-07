@@ -19,28 +19,19 @@ start = time.time()
 def get_links_attraction(id):
     print("link..........")
 
-    r = requests.get("https://www.tripadvisor.com/Attractions-"+id)
+    r = requests.get("https://www.tripadvisor.com/Attractions-"+id+"-Activities-a_allAttractions.true")
     soup = BeautifulSoup(r.text, "html.parser")
-    string = ""
-    for item in soup.find_all('script'):
-        string = string + str(item.find_all(text=True))
+
 
     # id parsing
-    pattern = "distanceToGeo\":0},{\"id\":[^,]+"
+    pattern = "data-locationid=\"[^\"]+"
     r = re.compile(pattern)
-    results = r.findall(string)
+    pid_list = []
+    pids = r.findall(str(soup))
+    for pid in pids:
+        pid_list.append(id + '-' + 'd' + pid[17:])
 
-
-    # id list return
-    it = iter(results)
-    list = []
-    for i in range(4):
-        pid = next(it)
-        pid = pid[24:]
-        list.append(id+'-'+'d'+pid)
-
-
-    return list
+    return pid_list
 
 def get_content_attraction(link):
     url = "https://www.tripadvisor.com/Attraction_Review-" + link
@@ -50,21 +41,43 @@ def get_content_attraction(link):
     for item in soup.find_all('script'):
         string = string + str(item.find_all(text=True))
 
-    # name parsing
-    patten = "{\"data\":{\"name\":\"[^\"]+"
-    r = re.compile(patten)
+    # main line parsing
+    pattern = "\"LocalBusiness\",\"name\":\".*?\",\"aggregateRating"
+    r = re.compile(pattern)
     results = r.findall(string)
-    pname = results[0]
-    pname = pname[17:]
+    line = results[0]
+    line = line[16:]
+    line = line.encode('utf-8')
+    line = line.decode('unicode_escape')
+    print(line)
 
-    # img url
-    img = soup.find_all("img")
-    img = img[3]
-    img_url = img.get("data-lazyurl")
+    # name parsing
+    pattern = "\"name\":\"[^\"]+"
+    r = re.compile(pattern)
+    results = r.findall(line)
+    pname = results[0]
+    pname = pname[8:]
+    print(pname)
+
+    # url parsing
+    pattern = ",\"url\":\".*?\",\"image"
+    r = re.compile(pattern)
+    results = r.findall(line)
+    url = results[0]
+    url = url[8:-8]
+    print(url)
+
+    # image url parsing
+    pattern = ",\"image\":\".*?\",\"aggregateRating"
+    r = re.compile(pattern)
+    results = r.findall(line)
+    img_url = results[0]
+    img_url = img_url[10:-18]
+    print(img_url)
 
     dic = {
         'name':pname,
-        'url':url,
+        'url':'https://www.tripadvisor.com'+url,
         'img_url':img_url
     }
     return dic
@@ -87,7 +100,7 @@ def get_links_hotel(id):
     # id list return
     it = iter(results)
     list = []
-    for i in range(4):
+    for i in range(10):
         pid = next(it)
         pid = pid[24:]
         list.append(id+'-'+'d'+pid)
