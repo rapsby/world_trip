@@ -17,7 +17,7 @@ url ='https://www.tripadvisor.com/Hotels-g187147-Paris_Ile_de_France-Hotels.html
 url = 'https://www.tripadvisor.com/Attraction_Review-g187147-d188150-Reviews-Musee_d_Orsay-Paris_Ile_de_France.html'
 url = "https://www.tripadvisor.com/Attractions-" + "g187147" + "-Activities-c26"
 url = "https://www.tripadvisor.com/Attractions-g187147-Activities-a_allAttractions.true"
-url = "https://www.tripadvisor.com/Attraction_Review-g187147-d188757"
+#url = "https://www.tripadvisor.com/Attraction_Review-g187147-d188757"
 r = requests.get(url)
 soup = BeautifulSoup(r.text, "html.parser")
 
