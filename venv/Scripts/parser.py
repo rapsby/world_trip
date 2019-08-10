@@ -85,54 +85,81 @@ def get_content_attraction(link):
 def get_links_hotel(id):
     print("link..........")
 
-    r = requests.get("https://www.tripadvisor.com/Attractions-"+id)
+    r = requests.get("https://www.tripadvisor.com/Hotels-" + id)
     soup = BeautifulSoup(r.text, "html.parser")
     string = ""
-    for item in soup.find_all('script'):
-        string = string + str(item.find_all(text=True))
+    for item in soup:
+        string = string + "\n" + str(item)
 
-    # id parsing
-    pattern = "distanceToGeo\":0},{\"id\":[^,]+"
+    pattern = "locIds.*?}"
     r = re.compile(pattern)
     results = r.findall(string)
-
+    line = results[0]
+    line = line[11:-3]
+    id_list = str.split(line, ',')
 
     # id list return
-    it = iter(results)
-    list = []
+    it = iter(id_list)
+    concated_list = []
     for i in range(10):
         pid = next(it)
-        pid = pid[24:]
-        list.append(id+'-'+'d'+pid)
+        concated_list.append(id + '-' + 'd' + pid)
 
-
-    return list
+    print(concated_list)
+    return concated_list
 
 def get_content_hotel(link):
-    url = "https://www.tripadvisor.com/Attraction_Review-" + link
+    url = "https://www.tripadvisor.com/Hotel_Review-" + link
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "html.parser")
     string = ""
-    for item in soup.find_all('script'):
-        string = string + str(item.find_all(text=True))
+    for item in soup:
+        string = string + "\n" + str(item)
 
-    # name parsing
-    patten = "{\"data\":{\"name\":\"[^\"]+"
-    r = re.compile(patten)
+    pattern = "<h1 class=\"ui_header h1\" id=\"HEADING\">.*?</h1>"
+    r = re.compile(pattern)
     results = r.findall(string)
     pname = results[0]
-    pname = pname[17:]
+    pname = pname[38:-5]
 
-    # img url
-    img = soup.find_all("img")
-    img = img[3]
-    img_url = img.get("data-lazyurl")
+    pattern = ";background-image:url.*?\".*?\""
+    r = re.compile(pattern)
+    results = r.findall(string)
+    img_url = None
+    if (len(results)) != 0:
+        img_url = results[0]
+        img_url = img_url[23:-1]
+    else:
+        pattern = "\"width\":[0-9]{4,4},\"height\":[0-9]{3,3},\"url\":\".*?jpg"
+        r = re.compile(pattern)
+        results = r.findall(string)
+        if (len(results)) != 0:
+            img_url = results[0]
+            img_url = img_url[33:]
+        else:
+            r = requests.get(url)
+            soup = BeautifulSoup(r.text, "html.parser")
+            pattern = ";background-image:url.*?\".*?\""
+            r = re.compile(pattern)
+            results = r.findall(string)
+            img_url = None
+            if (len(results)) != 0:
+                img_url = results[0]
+                img_url = img_url[23:-1]
+            else:
+                pattern = "\"width\":[0-9]{4,4},\"height\":[0-9]{3,3},\"url\":\".*?jpg"
+                r = re.compile(pattern)
+                results = r.findall(string)
+                if (len(results)) != 0:
+                    img_url = results[0]
+                    img_url = img_url[33:]
 
     dic = {
-        'name':pname,
-        'url':url,
-        'img_url':img_url
+        'name': pname,
+        'url': url,
+        'img_url': img_url
     }
+    print(dic)
     return dic
 
 def get_links_shopping(id):

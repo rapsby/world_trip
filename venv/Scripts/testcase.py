@@ -8,79 +8,39 @@ from collections import OrderedDict
 from pprint import pprint
 import pathlib
 import time
-starttime = time.time()
-loc = input("위치 : ")
-upHpAreaId = 2
-hpAreaId = input("AreaId : ")
 
-
-file = 'C:/Users/k/Desktop/json/TempPlace.json'
-basefile = 'C:/Users/k/Desktop/json/hhhppp/hotplace.json'
-kofile = 'C:/Users/k/Desktop/json/ko.xlf'
-kobasefile = 'C:/Users/k/Desktop/json/hhhppp/ko.xlf'
-shutil.copy(basefile, file)
-
-r = requests.get("https://www.siksinhot.com/taste?upHpAreaId=" + str(upHpAreaId) + "&hpAreaId="+str(hpAreaId)+"&isBestOrd=N")
+url ='https://www.tripadvisor.com/Hotels-g187147'
+url = "https://www.tripadvisor.com/Hotel_Review-g187147-d274978"
+url = "https://www.tripadvisor.com/Hotel_Review-g187147-d233805"
+url = "https://www.tripadvisor.com/Hotel_Review-g187147-d4340356"
+url = 'https://www.tripadvisor.com/Hotel_Review-g187147-d228694'
+url = 'https://www.tripadvisor.com/Hotel_Review-g187147-d313072-Reviews-Le_Regent_Montmartre_by_HipHopHostels-Paris_Ile_de_France.html'
+url = 'https://www.tripadvisor.com/Hotel_Review-g187147-d599275-Reviews-Hotel_Oceania_Paris_Porte_de_Versailles-Paris_Ile_de_France.html'
+url = 'https://www.tripadvisor.com/Hotel_Review-g187147-d274978'
+url = 'https://www.tripadvisor.com/Hotel_Review-g187147-d583986-Reviews-Hotel_Longchamp_Elysees-Paris_Ile_de_France.html'
+r = requests.get(url)
 soup = BeautifulSoup(r.text, "html.parser")
+string = ""
+for item in soup:
+    string = string +"\n"+str(item)
 
-# 상호명 parsing
-mr = soup.find_all("script")
-pattern = "\"pname\":\"[^\"]+"
+pattern = ";background-image:url.*?\".*?\""
 r = re.compile(pattern)
-results = r.findall(str(mr))
+results = r.findall(string)
+if(len(results))!= 0:
+    img_url = results[0]
+    img_url = img_url[23:-1]
 
-# 추천 맛집 string 정리
-it = iter(results)
-list = []
-str = "";
-while True:
-    try:
-
-
-        pname = next(it)
-        pname = pname[9:]
-        list.append(pname)
-        if(len(results) == len(list)):
-            str +="\""+loc+"의 $hotplace-kind 맛집은 "+pname+" 입니다. 다른 음식 추천을 원하시면 다시 음식 종류를 말해주시고 종료를 원하시면 취소를 말씀해주세요.\""
-        else:
-            str +="\""+loc+"의 $hotplace-kind 맛집은 "+pname+" 입니다. 다른 음식 추천을 원하시면 다시 음식 종류를 말해주시고 종료를 원하시면 취소를 말씀해주세요.\",\n"
+else:
+    print('hi')
+    print(soup)
+    pattern = "\"width\":[0-9]{4,4},\"height\":[0-9]{3,3},\"url\":\".*?jpg"
+    r = re.compile(pattern)
+    results = r.findall(string)
+    img_url = results[0]
+    img_url = img_url[33:]
 
 
+print(img_url)
 
-    except StopIteration:
-        break
 
-# 기본 파일에 위치, 추천 맛집 텍스트 넣기
-import codecs
-fileObj = codecs.open(basefile, "r", "utf-8" )
-u = fileObj.readlines()
-text = ""
-for i in u :
-    i = i.replace("ㅁㅈㅇㅊ", loc)
-    i = i.replace("ㄹㅋㅇㅅ", str)
-    text += i+'\n'
-
-fw = codecs.open(file, 'w', 'utf8')
-fw.write(text)
-fw.close()
-
-# ko.xlf 파일 수정해서 압축파일 만들기
-fileObj = codecs.open(kobasefile, "r", "utf-8" )
-u = fileObj.readlines()
-text = ""
-for i in u :
-    i = i.replace("목동", loc)
-    text += i+'\n'
-
-fw = codecs.open(kofile, 'w', 'utf8')
-fw.write(text)
-fw.close()
-
-# 압축
-os.chdir("C:/Users/k/Desktop/json")
-import zipfile
-with zipfile.ZipFile('namespace.zip', mode='w') as f:
-    f.write('ko.xlf', compress_type=zipfile.ZIP_DEFLATED)
-
-print("성공")
-print(time.time()-starttime)
