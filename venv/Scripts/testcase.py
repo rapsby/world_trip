@@ -18,12 +18,19 @@ url = 'https://www.tripadvisor.com/Hotel_Review-g187147-d313072-Reviews-Le_Regen
 url = 'https://www.tripadvisor.com/Hotel_Review-g187147-d599275-Reviews-Hotel_Oceania_Paris_Porte_de_Versailles-Paris_Ile_de_France.html'
 url = 'https://www.tripadvisor.com/Hotel_Review-g187147-d274978'
 url = 'https://www.tripadvisor.com/Hotel_Review-g187147-d583986-Reviews-Hotel_Longchamp_Elysees-Paris_Ile_de_France.html'
+url = 'https://www.tripadvisor.com/Attractions-g187147-Activities-c26'
+#url = 'https://www.tripadvisor.com/Attraction_Review-g187147-d246225-Reviews-Forum_des_Halles-Paris_Ile_de_France.html'
+url = 'https://www.tripadvisor.com/Attraction_Review-g196586-d4749809-Reviews'
+url = 'https://www.tripadvisor.com/Restaurants-g187147-Paris_Ile_de_France.html'
+#url = 'https://www.tripadvisor.com/Restaurant_Review-g187147-d14215380'
 r = requests.get(url)
 soup = BeautifulSoup(r.text, "html.parser")
 string = ""
 for item in soup:
     string = string +"\n"+str(item)
 
+print(string)
+'''
 pattern = ";background-image:url.*?\".*?\""
 r = re.compile(pattern)
 results = r.findall(string)
@@ -40,7 +47,6 @@ else:
     img_url = results[0]
     img_url = img_url[33:]
 
-
 print(img_url)
 
-
+'''

@@ -11,69 +11,65 @@ import time
 from multiprocessing import Pool
 from urllib.request import urlopen
 
-def get_links_attraction(id):
+
+def get_links_restaurant(id):
     print("link..........")
-
-    r = requests.get("https://www.tripadvisor.com/Attractions-"+id+"-Activities-a_allAttractions.true")
-    soup = BeautifulSoup(r.text, "html.parser")
-
-
-    # id parsing
-    pattern = "data-locationid=\"[^\"]+"
-    r = re.compile(pattern)
-    pid_list = []
-    pids = r.findall(str(soup))
-    for pid in pids:
-        pid_list.append(id + '-' + 'd' + pid[17:])
-
-    return pid_list
-
-def get_content_attraction(link):
-    url = "https://www.tripadvisor.com/Attraction_Review-" + link
+    url = "https://www.tripadvisor.com/Restaurants-"+id
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "html.parser")
     string = ""
     for item in soup:
         string = string + str(item)
 
-    # main line parsing
-    pattern = "\"LocalBusiness\",\"name\":\".*?\",\"aggregateRating"
+    # id parsing
+    pattern = '\"LocationInformation\",\"locationId\":.*?,'
     r = re.compile(pattern)
     results = r.findall(string)
-    line = results[0]
-    line = line[16:]
-    line = line.encode('utf-8')
-    line = line.decode('unicode_escape')
+    results = results[:10]
+
+    # id list return
+    concated_list = []
+    for i in range(10):
+        pid = results[i]
+        pid = pid[35:-2]
+        concated_list.append(id + '-' + 'd' + pid)
+
+
+    print(concated_list)
+    return concated_list
+
+def get_content_restaurant(link):
+    url = "https://www.tripadvisor.com/Restaurant_Review-" + link
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, "html.parser")
+    string = ""
+    for item in soup:
+        string = string + str(item)
 
     # name parsing
-    pattern = "\"name\":\"[^\"]+"
-    r = re.compile(pattern)
-    results = r.findall(line)
+    patten = "{\"data\":{\"name\":\"[^\"]+"
+    r = re.compile(patten)
+    results = r.findall(string)
     pname = results[0]
-    pname = pname[8:]
+    pname = pname[17:]
 
-    # url parsing
-    pattern = ",\"url\":\".*?\",\"image"
-    r = re.compile(pattern)
-    results = r.findall(line)
-    url = results[0]
-    url = url[8:-8]
+    # img url
+    patten = "data-lazyurl=\".*?jpg"
+    r = re.compile(patten)
+    results = r.findall(string)
+    img_url = None
+    if len(results)!=0:
+        img_url = results[0]
+        img_url = img_url[14:]
 
-    # image url parsing
-    pattern = ",\"image\":\".*?\",\"aggregateRating"
-    r = re.compile(pattern)
-    results = r.findall(line)
-    img_url = results[0]
-    img_url = img_url[10:-18]
 
     dic = {
         'name':pname,
-        'url':'https://www.tripadvisor.com'+url,
+        'url':url,
         'img_url':img_url
     }
     print(dic)
     return dic
-
 
 if __name__=='__main__':
     #link = input("link : ")
@@ -101,8 +97,8 @@ if __name__=='__main__':
 
     start_time = time.time()
     pool = Pool(processes=16)
-    attractions = pool.map(get_content_attraction, get_links_attraction(id))
+    #attractions = pool.map(get_content_attraction, get_links_attraction(id))
     #hotels = pool.map(get_content_hotel, get_links_hotel(id))
     #shopping = pool.map(get_content_shopping, get_links_shopping(id))
-    #restaurants = pool.map(get_content_restaurant, get_links_restaurant(id))
+    restaurants = pool.map(get_content_restaurant, get_links_restaurant(id))
 

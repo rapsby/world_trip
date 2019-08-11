@@ -16,8 +16,9 @@ import codecs
 
 start = time.time()
 
+
 def get_links_attraction(id):
-    print("link..........")
+    print("attraction link..........")
 
     r = requests.get("https://www.tripadvisor.com/Attractions-"+id+"-Activities-a_allAttractions.true")
     soup = BeautifulSoup(r.text, "html.parser")
@@ -38,8 +39,8 @@ def get_content_attraction(link):
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "html.parser")
     string = ""
-    for item in soup.find_all('script'):
-        string = string + str(item.find_all(text=True))
+    for item in soup:
+        string = string + str(item)
 
     # main line parsing
     pattern = "\"LocalBusiness\",\"name\":\".*?\",\"aggregateRating"
@@ -49,7 +50,6 @@ def get_content_attraction(link):
     line = line[16:]
     line = line.encode('utf-8')
     line = line.decode('unicode_escape')
-    print(line)
 
     # name parsing
     pattern = "\"name\":\"[^\"]+"
@@ -57,7 +57,6 @@ def get_content_attraction(link):
     results = r.findall(line)
     pname = results[0]
     pname = pname[8:]
-    print(pname)
 
     # url parsing
     pattern = ",\"url\":\".*?\",\"image"
@@ -65,7 +64,6 @@ def get_content_attraction(link):
     results = r.findall(line)
     url = results[0]
     url = url[8:-8]
-    print(url)
 
     # image url parsing
     pattern = ",\"image\":\".*?\",\"aggregateRating"
@@ -73,17 +71,17 @@ def get_content_attraction(link):
     results = r.findall(line)
     img_url = results[0]
     img_url = img_url[10:-18]
-    print(img_url)
 
     dic = {
         'name':pname,
         'url':'https://www.tripadvisor.com'+url,
         'img_url':img_url
     }
+    print(dic)
     return dic
 
 def get_links_hotel(id):
-    print("link..........")
+    print("hotel link..........")
 
     r = requests.get("https://www.tripadvisor.com/Hotels-" + id)
     soup = BeautifulSoup(r.text, "html.parser")
@@ -168,33 +166,34 @@ def get_links_shopping(id):
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "html.parser")
     string = ""
-    for item in soup.find_all('script'):
-        string = string + str(item.find_all(text=True))
+    for item in soup:
+        string = string + str(item)
 
     # id parsing
-    pattern = "distanceToGeo\":0},{\"id\":[^,]+"
+    pattern = '<!--trkL:.*?-->'
     r = re.compile(pattern)
     results = r.findall(string)
 
+    results =results[:10]
 
     # id list return
-    it = iter(results)
-    list = []
-    for i in range(4):
-        pid = next(it)
-        pid = pid[24:]
-        list.append(id+'-'+'d'+pid)
+    concated_list = []
+    for i in range(10):
+        pid = results[i]
+        pid = pid[9:-3]
+        concated_list.append(id + '-' + 'd' + pid)
 
 
-    return list
+    print(concated_list)
+    return concated_list
 
 def get_content_shopping(link):
     url = "https://www.tripadvisor.com/Attraction_Review-" + link
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "html.parser")
     string = ""
-    for item in soup.find_all('script'):
-        string = string + str(item.find_all(text=True))
+    for item in soup:
+        string = string + str(item)
 
     # name parsing
     patten = "{\"data\":{\"name\":\"[^\"]+"
@@ -204,50 +203,53 @@ def get_content_shopping(link):
     pname = pname[17:]
 
     # img url
-    img = soup.find_all("img")
-    img = img[3]
-    img_url = img.get("data-lazyurl")
+    patten = "data-lazyurl=\".*?jpg"
+    r = re.compile(patten)
+    results = r.findall(string)
+    img_url = results[0]
+    img_url = img_url[14:]
 
     dic = {
         'name':pname,
         'url':url,
         'img_url':img_url
     }
+    print(dic)
     return dic
 
 def get_links_restaurant(id):
     print("link..........")
-
-    r = requests.get("https://www.tripadvisor.com/Attractions-"+id)
-    soup = BeautifulSoup(r.text, "html.parser")
-    string = ""
-    for item in soup.find_all('script'):
-        string = string + str(item.find_all(text=True))
-
-    # id parsing
-    pattern = "distanceToGeo\":0},{\"id\":[^,]+"
-    r = re.compile(pattern)
-    results = r.findall(string)
-
-
-    # id list return
-    it = iter(results)
-    list = []
-    for i in range(4):
-        pid = next(it)
-        pid = pid[24:]
-        list.append(id+'-'+'d'+pid)
-
-
-    return list
-
-def get_content_restaurant(link):
-    url = "https://www.tripadvisor.com/Attraction_Review-" + id
+    url = "https://www.tripadvisor.com/Restaurants-"+id
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "html.parser")
     string = ""
-    for item in soup.find_all('script'):
-        string = string + str(item.find_all(text=True))
+    for item in soup:
+        string = string + str(item)
+
+    # id parsing
+    pattern = '\"LocationInformation\",\"locationId\":.*?,'
+    r = re.compile(pattern)
+    results = r.findall(string)
+    results = results[:10]
+
+    # id list return
+    concated_list = []
+    for i in range(10):
+        pid = results[i]
+        pid = pid[35:-2]
+        concated_list.append(id + '-' + 'd' + pid)
+
+
+    print(concated_list)
+    return concated_list
+
+def get_content_restaurant(link):
+    url = "https://www.tripadvisor.com/Restaurant_Review-" + link
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, "html.parser")
+    string = ""
+    for item in soup:
+        string = string + str(item)
 
     # name parsing
     patten = "{\"data\":{\"name\":\"[^\"]+"
@@ -257,15 +259,21 @@ def get_content_restaurant(link):
     pname = pname[17:]
 
     # img url
-    img = soup.find_all("img")
-    img = img[3]
-    img_url = img.get("data-lazyurl")
+    patten = "data-lazyurl=\".*?jpg"
+    r = re.compile(patten)
+    results = r.findall(string)
+    img_url = None
+    if len(results)!=0:
+        img_url = results[0]
+        img_url = img_url[14:]
+
 
     dic = {
         'name':pname,
         'url':url,
         'img_url':img_url
     }
+    print(dic)
     return dic
 
 if __name__=='__main__':
