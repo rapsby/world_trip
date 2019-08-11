@@ -11,10 +11,21 @@ import pathlib
 import time
 from multiprocessing import Pool
 import codecs
-
-
+import html
 
 start = time.time()
+
+def print_imgUrls(list_):
+    ans ="------------\n"
+    it = iter(list_)
+    while True:
+        try:
+            ans += str(next(it))+"\n"
+
+        except StopIteration:
+            break
+    print(ans)
+    return ans
 
 
 def get_links_attraction(id):
@@ -29,6 +40,7 @@ def get_links_attraction(id):
     r = re.compile(pattern)
     pid_list = []
     pids = r.findall(str(soup))
+    pids = pids[:10]
     for pid in pids:
         pid_list.append(id + '-' + 'd' + pid[17:])
 
@@ -57,13 +69,12 @@ def get_content_attraction(link):
     results = r.findall(line)
     pname = results[0]
     pname = pname[8:]
+    pname = pname.encode('utf-8')
+    pname = pname.decode('unicode_escape')
+    pname = pname.encode('utf-8')
+    pname = pname.decode('unicode_escape')
+    pname = str(html.unescape(pname))
 
-    # url parsing
-    pattern = ",\"url\":\".*?\",\"image"
-    r = re.compile(pattern)
-    results = r.findall(line)
-    url = results[0]
-    url = url[8:-8]
 
     # image url parsing
     pattern = ",\"image\":\".*?\",\"aggregateRating"
@@ -74,10 +85,9 @@ def get_content_attraction(link):
 
     dic = {
         'name':pname,
-        'url':'https://www.tripadvisor.com'+url,
+        'url':url,
         'img_url':img_url
     }
-    print(dic)
     return dic
 
 def get_links_hotel(id):
@@ -103,7 +113,6 @@ def get_links_hotel(id):
         pid = next(it)
         concated_list.append(id + '-' + 'd' + pid)
 
-    print(concated_list)
     return concated_list
 
 def get_content_hotel(link):
@@ -112,56 +121,54 @@ def get_content_hotel(link):
     soup = BeautifulSoup(r.text, "html.parser")
     string = ""
     for item in soup:
-        string = string + "\n" + str(item)
+        string = string +"\n"+ str(item)
 
     pattern = "<h1 class=\"ui_header h1\" id=\"HEADING\">.*?</h1>"
     r = re.compile(pattern)
     results = r.findall(string)
     pname = results[0]
     pname = pname[38:-5]
-
-    pattern = ";background-image:url.*?\".*?\""
-    r = re.compile(pattern)
-    results = r.findall(string)
+    pname = pname.encode('utf-8')
+    pname = pname.decode('unicode_escape')
+    pname = pname.encode('utf-8')
+    pname = pname.decode('unicode_escape')
+    pname = str(html.unescape(pname))
     img_url = None
-    if (len(results)) != 0:
-        img_url = results[0]
-        img_url = img_url[23:-1]
-    else:
-        pattern = "\"width\":[0-9]{4,4},\"height\":[0-9]{3,3},\"url\":\".*?jpg"
+    count = 0
+    while True:
+        count += 1
+        r = requests.get(url)
+        soup = BeautifulSoup(r.text, "html.parser")
+        string = ""
+        for item in soup:
+            string = string + "\n" + str(item)
+        pattern = ";background-image:url.*?\".*?\""
         r = re.compile(pattern)
         results = r.findall(string)
         if (len(results)) != 0:
             img_url = results[0]
-            img_url = img_url[33:]
+            img_url = img_url[23:-1]
         else:
-            r = requests.get(url)
-            soup = BeautifulSoup(r.text, "html.parser")
-            pattern = ";background-image:url.*?\".*?\""
+            pattern = "\"width\":[0-9]{4,4},\"height\":[0-9]{3,3},\"url\":\".*?jpg"
             r = re.compile(pattern)
             results = r.findall(string)
-            img_url = None
             if (len(results)) != 0:
                 img_url = results[0]
-                img_url = img_url[23:-1]
-            else:
-                pattern = "\"width\":[0-9]{4,4},\"height\":[0-9]{3,3},\"url\":\".*?jpg"
-                r = re.compile(pattern)
-                results = r.findall(string)
-                if (len(results)) != 0:
-                    img_url = results[0]
-                    img_url = img_url[33:]
+                img_url = img_url[33:]
+        if img_url != None:
+            break
+        else:
+            print("error count " + str(count))
 
     dic = {
-        'name': pname,
-        'url': url,
-        'img_url': img_url
+        'name':pname,
+        'url':url,
+        'img_url':img_url
     }
-    print(dic)
     return dic
 
 def get_links_shopping(id):
-    print("link..........")
+    print("shopping link..........")
     url = "https://www.tripadvisor.com/Attractions-"+id+"-Activities-c26"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "html.parser")
@@ -184,7 +191,6 @@ def get_links_shopping(id):
         concated_list.append(id + '-' + 'd' + pid)
 
 
-    print(concated_list)
     return concated_list
 
 def get_content_shopping(link):
@@ -201,6 +207,11 @@ def get_content_shopping(link):
     results = r.findall(string)
     pname = results[0]
     pname = pname[17:]
+    pname = pname.encode('utf-8')
+    pname = pname.decode('unicode_escape')
+    pname = pname.encode('utf-8')
+    pname = pname.decode('unicode_escape')
+    pname = str(html.unescape(pname))
 
     # img url
     patten = "data-lazyurl=\".*?jpg"
@@ -214,11 +225,10 @@ def get_content_shopping(link):
         'url':url,
         'img_url':img_url
     }
-    print(dic)
     return dic
 
 def get_links_restaurant(id):
-    print("link..........")
+    print("restaurant link..........")
     url = "https://www.tripadvisor.com/Restaurants-"+id
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "html.parser")
@@ -240,7 +250,6 @@ def get_links_restaurant(id):
         concated_list.append(id + '-' + 'd' + pid)
 
 
-    print(concated_list)
     return concated_list
 
 def get_content_restaurant(link):
@@ -257,6 +266,11 @@ def get_content_restaurant(link):
     results = r.findall(string)
     pname = results[0]
     pname = pname[17:]
+    pname = pname.encode('utf-8')
+    pname = pname.decode('unicode_escape')
+    pname = pname.encode('utf-8')
+    pname = pname.decode('unicode_escape')
+    pname = str(html.unescape(pname))
 
     # img url
     patten = "data-lazyurl=\".*?jpg"
@@ -273,16 +287,9 @@ def get_content_restaurant(link):
         'url':url,
         'img_url':img_url
     }
-    print(dic)
     return dic
 
 if __name__=='__main__':
-
-    intent_file = 'C:/Users/k/Desktop/trip_json/Attractions.json'
-    baseintent_file = 'C:/Users/k/Desktop/trip_json/original/Attractions.json'
-    deploy_file = 'C:/Users/k/Desktop/trip_json/en.xlf'
-    basedeploy_file = 'C:/Users/k/Desktop/trip_json/original/en.xlf'
-    shutil.copy(baseintent_file, intent_file)
 
     link = input("link : ")
     patten = "Home-.*"
@@ -309,60 +316,74 @@ if __name__=='__main__':
     start_time = time.time()
     pool = Pool(processes=16)
     attractions = pool.map(get_content_attraction, get_links_attraction(id))
-    #hotels = pool.map(get_content_hotel, get_links_hotel(id))
-    #shopping = pool.map(get_content_shopping, get_links_shopping(id))
-    #restaurants = pool.map(get_content_restaurant, get_links_restaurant(id))
+    hotels = pool.map(get_content_hotel, get_links_hotel(id))
+    shopping = pool.map(get_content_shopping, get_links_shopping(id))
+    restaurants = pool.map(get_content_restaurant, get_links_restaurant(id))
+    print_imgUrls(attractions)
+    print_imgUrls(hotels)
+    print_imgUrls(shopping)
+    print_imgUrls(restaurants)
 
-'''
-    # removing unicode in result sentence
-    for i in range(0,len(result)):
-        data = result[i]
-
-        data = data.encode('utf-8')
-        data = data.decode('unicode_escape')
-        data = data.encode('utf-8')
-        data = data.decode('unicode_escape')
-        data = str.replace(data, "\"", "\\\"")
-        attractions += "\"" + data + "\"" + "\n"
-        if i != len(result) - 1:
-            attractions += ","
-
-        #print(attractions)
 
     # intent 파일에 텍스트 넣기
-    fileObj = codecs.open(baseintent_file, "r", "utf-8")
-    u = fileObj.readlines()
+    attractions_origin = 'C:/Users/k/Desktop/tour_json/tour_origin/intents/attractions.json'
+    hotels_origin = 'C:/Users/k/Desktop/tour_json/tour_origin/intents/hotels.json'
+    shopping_origin = 'C:/Users/k/Desktop/tour_json/tour_origin/intents/shopping.json'
+    restaurants_origin = 'C:/Users/k/Desktop/tour_json/tour_origin/intents/restaurants.json'
+    en_origin = 'C:/Users/k/Desktop/tour_json/tour_origin/en_origin.xlf'
+
+    attractions_after = 'C:/Users/k/Desktop/tour_json/o_tour/intents/attractions.json'
+    hotels_after = 'C:/Users/k/Desktop/tour_json/o_tour/intents/hotels.json'
+    shopping_after = 'C:/Users/k/Desktop/tour_json/o_tour/intents/shopping.json'
+    restaurants_after = 'C:/Users/k/Desktop/tour_json/o_tour/intents/restaurants.json'
+    en = 'C:/Users/k/Desktop/tour_json/en.xlf'
+
+    shutil.copy(attractions_origin, attractions_after)
+    shutil.copy(hotels_origin, hotels_after)
+    shutil.copy(shopping_origin, shopping_after)
+    shutil.copy(restaurants_origin, restaurants_after)
+    shutil.copy(en_origin, en)
+
+    fileObj = codecs.open(attractions_after, "r", "utf-8")
+    lines = fileObj.readlines()
     text = ""
-    for i in u:
+    a = dict()
+    a = attractions[0]
+    for i in lines:
         i = i.replace("$location$", location)
         i = i.replace("$attraction$", attractions)
         text += i + '\n'
-
     fw = codecs.open(intent_file, 'w', 'utf8')
     fw.write(text)
     fw.close()
 
+
     # en.xlf 파일 수정해서 압축파일 만들기
-    fileObj = codecs.open(basedeploy_file, "r", "utf-8")
+    fileObj = codecs.open(en_origin, "r", "utf-8")
     u = fileObj.readlines()
     text = ""
     for i in u:
         i = i.replace("$location$", location)
         text += i + '\n'
 
-    fw = codecs.open(deploy_file, 'w', 'utf8')
+    fw = codecs.open(en, 'w', 'utf8')
     fw.write(text)
     fw.close()
 
-    # 압축
-    os.chdir("C:/Users/k/Desktop/trip_json")
+    # deploy 내용 압축
+    os.chdir("C:/Users/k/Desktop/tour_json")
     import zipfile
-
     with zipfile.ZipFile('namespace.zip', mode='w') as f:
         f.write('en.xlf', compress_type=zipfile.ZIP_DEFLATED)
 
 
+    f = zipfile.ZipFile('o_tour.zip', 'w', zipfile.ZIP_DEFLATED)
+    startdir = "C:/Users/k/Desktop/tour_json/o_tour"
+    for dirpath, dirnames, filenames in os.walk(startdir):
+        for filename in filenames:
+            f.write(os.path.join(dirpath, filename))
+    f.close()
+
+
 
     print("--- %s seconds ---" % (time.time() - start_time))
-
-'''
