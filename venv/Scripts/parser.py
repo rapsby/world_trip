@@ -15,6 +15,27 @@ import html
 
 start = time.time()
 
+def replace_information(file, dicts):
+    fileObj = codecs.open(file, "r", "utf-8")
+    lines = fileObj.readlines()
+    text = ""
+    for i in lines:
+        text += i
+
+    count = 0
+    for d in dicts:
+        count += 1
+        name = d['name']
+        url = d['url']
+        img_url = d['img_url']
+        text = text.replace('$title' + str(count)+'$', name)
+        text = text.replace('$url' + str(count)+'$', url)
+        text = text.replace('$image' + str(count)+'$', img_url)
+
+    fw = codecs.open(file, 'w', 'utf8')
+    fw.write(text)
+    fw.close()
+
 def print_imgUrls(list_):
     ans ="------------\n"
     it = iter(list_)
@@ -26,7 +47,6 @@ def print_imgUrls(list_):
             break
     print(ans)
     return ans
-
 
 def get_links_attraction(id):
     print("attraction link..........")
@@ -319,10 +339,10 @@ if __name__=='__main__':
     hotels = pool.map(get_content_hotel, get_links_hotel(id))
     shopping = pool.map(get_content_shopping, get_links_shopping(id))
     restaurants = pool.map(get_content_restaurant, get_links_restaurant(id))
-    print_imgUrls(attractions)
-    print_imgUrls(hotels)
-    print_imgUrls(shopping)
-    print_imgUrls(restaurants)
+    #print_imgUrls(attractions)
+    #print_imgUrls(hotels)
+    #print_imgUrls(shopping)
+    #print_imgUrls(restaurants)
 
 
     # intent 파일에 텍스트 넣기
@@ -344,21 +364,12 @@ if __name__=='__main__':
     shutil.copy(restaurants_origin, restaurants_after)
     shutil.copy(en_origin, en)
 
-    fileObj = codecs.open(attractions_after, "r", "utf-8")
-    lines = fileObj.readlines()
-    text = ""
-    a = dict()
-    a = attractions[0]
-    for i in lines:
-        i = i.replace("$location$", location)
-        i = i.replace("$attraction$", attractions)
-        text += i + '\n'
-    fw = codecs.open(intent_file, 'w', 'utf8')
-    fw.write(text)
-    fw.close()
+    replace_information(attractions_after,attractions)
+    replace_information(hotels_after, hotels)
+    replace_information(shopping_after, shopping)
+    replace_information(restaurants_after, restaurants)
 
-
-    # en.xlf 파일 수정해서 압축파일 만들기
+# en 파일 수정, 압축파일 만들기
     fileObj = codecs.open(en_origin, "r", "utf-8")
     u = fileObj.readlines()
     text = ""
@@ -373,12 +384,11 @@ if __name__=='__main__':
     # deploy 내용 압축
     os.chdir("C:/Users/k/Desktop/tour_json")
     import zipfile
-    with zipfile.ZipFile('namespace.zip', mode='w') as f:
+    with zipfile.ZipFile(location+'_namespace.zip', mode='w') as f:
         f.write('en.xlf', compress_type=zipfile.ZIP_DEFLATED)
 
-
-    f = zipfile.ZipFile('o_tour.zip', 'w', zipfile.ZIP_DEFLATED)
-    startdir = "C:/Users/k/Desktop/tour_json/o_tour"
+    f = zipfile.ZipFile(location+'_tour.zip', 'w', zipfile.ZIP_DEFLATED)
+    startdir = "./o_tour"
     for dirpath, dirnames, filenames in os.walk(startdir):
         for filename in filenames:
             f.write(os.path.join(dirpath, filename))

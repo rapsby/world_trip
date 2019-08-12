@@ -23,6 +23,12 @@ url = 'https://www.tripadvisor.com/Attractions-g187147-Activities-c26'
 url = 'https://www.tripadvisor.com/Attraction_Review-g196586-d4749809-Reviews'
 url = 'https://www.tripadvisor.com/Restaurants-g187147-Paris_Ile_de_France.html'
 #url = 'https://www.tripadvisor.com/Restaurant_Review-g187147-d14215380'
+count = 10
+print("$title"+str(count)=="$title10")
+text = "\"title\": \"$title10\","
+text = text.replace("$title"+str(count), "sdf" )
+print(text)
+'''
 r = requests.get(url)
 soup = BeautifulSoup(r.text, "html.parser")
 string = ""
@@ -30,6 +36,7 @@ for item in soup:
     string = string +"\n"+str(item)
 
 print(string)
+'''
 '''
 pattern = ";background-image:url.*?\".*?\""
 r = re.compile(pattern)
