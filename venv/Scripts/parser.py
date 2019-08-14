@@ -143,11 +143,13 @@ def get_content_hotel(link):
     for item in soup:
         string = string +"\n"+ str(item)
 
-    pattern = "<h1 class=\"ui_header h1\" id=\"HEADING\">.*?</h1>"
+    #pattern = "<h1 class=\"ui_header h1\" id=\"HEADING\">.*?</h1>"
+    pattern = "id=\"HEADING\">.*?</h1>"
+
     r = re.compile(pattern)
     results = r.findall(string)
     pname = results[0]
-    pname = pname[38:-5]
+    pname = pname[13:-5]
     pname = pname.encode('utf-8')
     pname = pname.decode('unicode_escape')
     pname = pname.encode('utf-8')
