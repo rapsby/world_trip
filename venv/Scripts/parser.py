@@ -202,16 +202,27 @@ def get_links_shopping(id):
     pattern = '<!--trkL:.*?-->'
     r = re.compile(pattern)
     results = r.findall(string)
+    if len(results)==0:
+        pattern = "locIds.*?}"
+        r = re.compile(pattern)
+        results = r.findall(string)
+        line = results[0]
+        line = line[11:-3]
+        id_list = str.split(line, ',')
+        it = iter(id_list)
+        concated_list = []
+        for i in range(10):
+            pid = next(it)
+            concated_list.append(id + '-' + 'd' + pid)
+        return concated_list
 
-    results =results[:10]
-
+    results = results[:10]
     # id list return
     concated_list = []
     for i in range(10):
         pid = results[i]
         pid = pid[9:-3]
         concated_list.append(id + '-' + 'd' + pid)
-
 
     return concated_list
 
@@ -222,7 +233,6 @@ def get_content_shopping(link):
     string = ""
     for item in soup:
         string = string + str(item)
-
     # name parsing
     patten = "{\"data\":{\"name\":\"[^\"]+"
     r = re.compile(patten)
@@ -314,11 +324,11 @@ def get_content_restaurant(link):
 if __name__=='__main__':
 
     link = input("link : ")
-    patten = "Home-.*"
+    patten = "Home-g[0-9]*"
     r = re.compile(patten)
     results = r.findall(link)
     id = results[0]
-    id = id[5:12]
+    id = id[5:]
     print(id)
 
     url = 'https://www.tripadvisor.com/Home-'

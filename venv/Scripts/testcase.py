@@ -25,27 +25,19 @@ url = 'https://www.tripadvisor.com/Attraction_Review-g196586-d4749809-Reviews'
 url = 'https://www.tripadvisor.com/Restaurants-g187147-Paris_Ile_de_France.html'
 #url = 'https://www.tripadvisor.com/Restaurant_Review-g187147-d14215380'
 url = 'https://www.tripadvisor.com/Hotel_Review-g294217-d652907'
-url = 'https://www.tripadvisor.com/Hotel_Review-g187870-d506155'
+url = 'https://www.tripadvisor.com/Attractions-g297415-Activities-c26'
+url = 'https://www.tripadvisor.com/Attraction_Review-g297415-d3362245'
 r = requests.get(url)
 soup = BeautifulSoup(r.text, "html.parser")
 string = ""
 for item in soup:
     string = string +"\n"+str(item)
 
-pattern = "id=\"HEADING\">.*?</h1>"
+pattern = 'locIds\\\\\":\\\\\".*?\"'
 r = re.compile(pattern)
 results = r.findall(string)
 
-r = re.compile(pattern)
-results = r.findall(string)
-pname = results[0]
-pname = pname[13:-5]
-pname = pname.encode('utf-8')
-pname = pname.decode('unicode_escape')
-pname = pname.encode('utf-8')
-pname = pname.decode('unicode_escape')
-pname = str(html.unescape(pname))
-print(pname)
+print(string)
 '''
 pattern = ";background-image:url.*?\".*?\""
 r = re.compile(pattern)
