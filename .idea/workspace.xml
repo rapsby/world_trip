@@ -4,6 +4,7 @@
     <list default="true" id="a223d1af-6f0e-475c-bdc1-2d1e56e7c428" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/venv/Scripts/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/Scripts/parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/Scripts/test_attraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/Scripts/test_attraction.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/venv/Scripts/testcase.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/Scripts/testcase.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,11 +17,11 @@
     <session id="-1713970371">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="19" />
+          <entry key="project.closed" value="20" />
           <entry key="project.open.time.11" value="1" />
-          <entry key="project.open.time.2" value="17" />
+          <entry key="project.open.time.2" value="19" />
           <entry key="project.open.time.3" value="1" />
-          <entry key="project.opened" value="19" />
+          <entry key="project.opened" value="21" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -36,13 +37,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="11" />
-          <entry key="py" value="7962" />
+          <entry key="py" value="8115" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="11" />
-          <entry key="Python" value="7962" />
+          <entry key="Python" value="8115" />
         </counts>
       </usages-collector>
     </session>
@@ -52,8 +53,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/venv/Scripts/testcase.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="39" column="12" selection-start-line="39" selection-start-column="12" selection-end-line="39" selection-end-column="12" />
+            <state relative-caret-position="107">
+              <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -61,11 +62,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/venv/Scripts/test_attraction.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="756">
-              <caret line="42" column="21" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
+            <state relative-caret-position="121">
+              <caret line="13" selection-start-line="13" selection-end-line="39" selection-end-column="19" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
-                <element signature="e#284#691#0" />
               </folding>
             </state>
           </provider>
@@ -74,18 +74,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/venv/Scripts/parser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="233" column="21" lean-forward="true" selection-start-line="233" selection-start-column="21" selection-end-line="233" selection-end-column="21" />
+            <state relative-caret-position="205">
+              <caret line="70" column="35" selection-start-line="70" selection-start-column="35" selection-end-line="70" selection-end-column="35" />
               <folding>
                 <element signature="e#24#55#0" expanded="true" />
                 <element signature="e#324#840#0" />
                 <element signature="e#872#1060#0" />
-                <element signature="e#1096#1535#0" />
                 <element signature="e#1575#2696#0" />
                 <element signature="e#2727#3311#0" />
                 <element signature="e#3346#4924#0" />
-                <element signature="e#6453#7053#0" />
-                <element signature="e#7093#7979#0" />
               </folding>
             </state>
           </provider>
@@ -94,7 +91,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/venv/Scripts/parsingAttractions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3248">
+            <state relative-caret-position="3556">
               <caret line="127" column="44" selection-start-line="127" selection-start-column="44" selection-end-line="127" selection-end-column="44" />
               <folding>
                 <element signature="e#24#55#0" expanded="true" />
@@ -177,20 +174,20 @@
         <option value="$PROJECT_DIR$/venv/Scripts/parsingAttractions.py" />
         <option value="$PROJECT_DIR$/venv/Scripts/test.py" />
         <option value="$PROJECT_DIR$/venv/Scripts/tmp.py" />
-        <option value="$PROJECT_DIR$/venv/Scripts/test_attraction.py" />
         <option value="$PROJECT_DIR$/venv/Scripts/test_restaurant.py" />
         <option value="$PROJECT_DIR$/venv/Scripts/test_shopping.py" />
         <option value="$PROJECT_DIR$/venv/Scripts/test_hotel.py" />
         <option value="$PROJECT_DIR$/venv/Scripts/testcase.py" />
+        <option value="$PROJECT_DIR$/venv/Scripts/test_attraction.py" />
         <option value="$PROJECT_DIR$/venv/Scripts/parser.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="533" />
-    <option name="y" value="62" />
-    <option name="width" value="1324" />
-    <option name="height" value="945" />
+    <option name="x" value="1185" />
+    <option name="y" value="51" />
+    <option name="width" value="716" />
+    <option name="height" value="975" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -241,6 +238,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test_attraction" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="world_trip" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/venv/Scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/venv/Scripts/test_attraction.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="test_hotel" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="world_trip" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -283,27 +301,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test_shopping" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="world_trip" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/venv/Scripts" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/venv/Scripts/test_shopping.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="testcase" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="world_trip" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -327,18 +324,18 @@
     </configuration>
     <list>
       <item itemvalue="Python.testcase" />
-      <item itemvalue="Python.test_shopping" />
       <item itemvalue="Python.test_restaurant" />
       <item itemvalue="Python.parser" />
       <item itemvalue="Python.test_hotel" />
+      <item itemvalue="Python.test_attraction" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.parser" />
+        <item itemvalue="Python.test_attraction" />
         <item itemvalue="Python.testcase" />
         <item itemvalue="Python.test_hotel" />
         <item itemvalue="Python.test_restaurant" />
-        <item itemvalue="Python.test_shopping" />
       </list>
     </recent_temporary>
   </component>
@@ -356,14 +353,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="533" y="62" width="1324" height="945" extended-state="0" />
+    <frame x="1185" y="51" width="716" height="975" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.82063884" weight="0.19595645" />
       <window_info id="Structure" order="1" sideWeight="0.17936118" side_tool="true" weight="0.19595645" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.49753088" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.42976192" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39869282" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -416,27 +414,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/venv/Scripts/tmp.py" />
-    <entry file="file://$PROJECT_DIR$/venv/Scripts/test_attraction.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="42" column="21" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-            <element signature="e#284#691#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Scripts/parsingAttractions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3248">
-          <caret line="127" column="44" selection-start-line="127" selection-start-column="44" selection-end-line="127" selection-end-column="44" />
-          <folding>
-            <element signature="e#24#55#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/venv/Scripts/test_hotel.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1288">
@@ -463,25 +440,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/venv/Scripts/testcase.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="39" column="12" selection-start-line="39" selection-start-column="12" selection-end-line="39" selection-end-column="12" />
+        <state relative-caret-position="107">
+          <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Scripts/parsingAttractions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3556">
+          <caret line="127" column="44" selection-start-line="127" selection-start-column="44" selection-end-line="127" selection-end-column="44" />
+          <folding>
+            <element signature="e#24#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Scripts/test_attraction.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="13" selection-start-line="13" selection-end-line="39" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/venv/Scripts/parser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="233" column="21" lean-forward="true" selection-start-line="233" selection-start-column="21" selection-end-line="233" selection-end-column="21" />
+        <state relative-caret-position="205">
+          <caret line="70" column="35" selection-start-line="70" selection-start-column="35" selection-end-line="70" selection-end-column="35" />
           <folding>
             <element signature="e#24#55#0" expanded="true" />
             <element signature="e#324#840#0" />
             <element signature="e#872#1060#0" />
-            <element signature="e#1096#1535#0" />
             <element signature="e#1575#2696#0" />
             <element signature="e#2727#3311#0" />
             <element signature="e#3346#4924#0" />
-            <element signature="e#6453#7053#0" />
-            <element signature="e#7093#7979#0" />
           </folding>
         </state>
       </provider>

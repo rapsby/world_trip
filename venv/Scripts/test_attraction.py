@@ -25,6 +25,17 @@ def get_links_attraction(id):
     pids = r.findall(str(soup))
     for pid in pids:
         pid_list.append(id + '-' + 'd' + pid[17:])
+    pid_list = pid_list[:10]
+
+    if len(pid_list)== 0:
+        pattern = "\"id\":[0-9]+,\"name\""
+        r = re.compile(pattern)
+        pid_list = []
+        pids = r.findall(str(soup))
+        print(pids)
+        for pid in pids:
+            pid_list.append(id + '-' + 'd' + pid[5:-7])
+        pid_list = pid_list[4:14]
 
     return pid_list
 
@@ -77,7 +88,7 @@ def get_content_attraction(link):
 
 if __name__=='__main__':
     #link = input("link : ")
-    link = 'https://www.tripadvisor.com/Home-g187147'
+    link = 'https://www.tripadvisor.com/Home-g293913'
     patten = "Home-.*"
     r = re.compile(patten)
     results = r.findall(link)

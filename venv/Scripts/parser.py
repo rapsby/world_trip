@@ -48,21 +48,30 @@ def print_imgUrls(list_):
     print(ans)
     return ans
 
+
 def get_links_attraction(id):
-    print("attraction link..........")
+    print("link..........")
 
-    r = requests.get("https://www.tripadvisor.com/Attractions-"+id+"-Activities-a_allAttractions.true")
+    r = requests.get("https://www.tripadvisor.com/Attractions-" + id + "-Activities-a_allAttractions.true")
     soup = BeautifulSoup(r.text, "html.parser")
-
 
     # id parsing
     pattern = "data-locationid=\"[^\"]+"
     r = re.compile(pattern)
     pid_list = []
     pids = r.findall(str(soup))
-    pids = pids[:10]
     for pid in pids:
         pid_list.append(id + '-' + 'd' + pid[17:])
+    pid_list = pid_list[:10]
+
+    if len(pid_list) == 0:
+        pattern = "\"id\":[0-9]+,\"name\""
+        r = re.compile(pattern)
+        pid_list = []
+        pids = r.findall(str(soup))
+        for pid in pids:
+            pid_list.append(id + '-' + 'd' + pid[5:-7])
+        pid_list = pid_list[4:14]
 
     return pid_list
 
