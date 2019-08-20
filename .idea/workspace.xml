@@ -4,7 +4,7 @@
     <list default="true" id="a223d1af-6f0e-475c-bdc1-2d1e56e7c428" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/venv/Scripts/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/Scripts/parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/Scripts/test_attraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/Scripts/test_attraction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/Scripts/test_shopping.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/Scripts/test_shopping.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/venv/Scripts/testcase.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/Scripts/testcase.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,48 +17,39 @@
     <session id="-1713970371">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="20" />
+          <entry key="project.closed" value="22" />
           <entry key="project.open.time.11" value="1" />
-          <entry key="project.open.time.2" value="19" />
+          <entry key="project.open.time.2" value="20" />
           <entry key="project.open.time.3" value="1" />
-          <entry key="project.opened" value="21" />
+          <entry key="project.opened" value="22" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="11" />
+          <entry key="py" value="13" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="11" />
+          <entry key="Python" value="13" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="11" />
-          <entry key="py" value="8115" />
+          <entry key="py" value="8235" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="11" />
-          <entry key="Python" value="8115" />
+          <entry key="Python" value="8235" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/venv/Scripts/testcase.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="107">
-              <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/venv/Scripts/test_attraction.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -71,30 +62,24 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/venv/Scripts/parser.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/venv/Scripts/testcase.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="70" column="35" selection-start-line="70" selection-start-column="35" selection-end-line="70" selection-end-column="35" />
-              <folding>
-                <element signature="e#24#55#0" expanded="true" />
-                <element signature="e#324#840#0" />
-                <element signature="e#872#1060#0" />
-                <element signature="e#1575#2696#0" />
-                <element signature="e#2727#3311#0" />
-                <element signature="e#3346#4924#0" />
-              </folding>
+            <state relative-caret-position="191">
+              <caret line="31" column="70" selection-start-line="31" selection-start-column="70" selection-end-line="31" selection-end-column="70" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/venv/Scripts/parsingAttractions.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/venv/Scripts/parser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3556">
-              <caret line="127" column="44" selection-start-line="127" selection-start-column="44" selection-end-line="127" selection-end-column="44" />
+            <state relative-caret-position="317">
+              <caret line="235" lean-forward="true" selection-start-line="235" selection-end-line="235" />
               <folding>
                 <element signature="e#24#55#0" expanded="true" />
+                <element signature="e#324#840#0" />
+                <element signature="e#872#1060#0" />
               </folding>
             </state>
           </provider>
@@ -115,8 +100,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/venv/Scripts/test_shopping.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4452">
-              <caret line="170" selection-start-line="170" selection-end-line="170" />
+            <state relative-caret-position="205">
+              <caret line="173" column="38" lean-forward="true" selection-start-line="173" selection-start-column="38" selection-end-line="173" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -162,6 +147,7 @@
       <find>fw</find>
       <find>locId\&quot;:</find>
       <find>split</find>
+      <find>//maps.google.com/maps/api/staticmap?&amp;channel=ta.desktop.attraction_review&amp;zoom=15&amp;size=401x345&amp;scale=2&amp;client=gme-tripadvisorinc&amp;format=jpg&amp;sensor=false&amp;language=en_US&amp;center=31.234953,121.487373&amp;maptype=roadmap&amp;&amp;markers=icon:http%3A%2F%2Fc1.tacdn.com%2Fimg2%2Fmaps%2Ficons%2Fresponsive_map_pins_v2%2FAR_Anchor_pin.png|31.234953,121.487373&amp;&amp;markers=icon:http%3A%2F%2Fc1.tacdn.com%2Fimg2%2Fmaps%2Ficons%2Fresponsive_map_pins_v1%2FAR_pin.png|31.234526,121.487610|31.233831,121.488304|31.233831,121.488304&amp;signature=MpIjd07a4AUgbLFvEk48NeBhMb4=</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -175,18 +161,18 @@
         <option value="$PROJECT_DIR$/venv/Scripts/test.py" />
         <option value="$PROJECT_DIR$/venv/Scripts/tmp.py" />
         <option value="$PROJECT_DIR$/venv/Scripts/test_restaurant.py" />
-        <option value="$PROJECT_DIR$/venv/Scripts/test_shopping.py" />
         <option value="$PROJECT_DIR$/venv/Scripts/test_hotel.py" />
-        <option value="$PROJECT_DIR$/venv/Scripts/testcase.py" />
         <option value="$PROJECT_DIR$/venv/Scripts/test_attraction.py" />
+        <option value="$PROJECT_DIR$/venv/Scripts/test_shopping.py" />
+        <option value="$PROJECT_DIR$/venv/Scripts/testcase.py" />
         <option value="$PROJECT_DIR$/venv/Scripts/parser.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1185" />
+    <option name="x" value="914" />
     <option name="y" value="51" />
-    <option name="width" value="716" />
+    <option name="width" value="987" />
     <option name="height" value="975" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -194,7 +180,31 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="world_trip" type="b2602c69:ProjectViewProjectNode" />
+              <item name="world_trip" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="world_trip" type="b2602c69:ProjectViewProjectNode" />
+              <item name="world_trip" type="462c0819:PsiDirectoryNode" />
+              <item name="venv" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="world_trip" type="b2602c69:ProjectViewProjectNode" />
+              <item name="world_trip" type="462c0819:PsiDirectoryNode" />
+              <item name="venv" type="462c0819:PsiDirectoryNode" />
+              <item name="Scripts" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -332,8 +342,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.parser" />
-        <item itemvalue="Python.test_attraction" />
         <item itemvalue="Python.testcase" />
+        <item itemvalue="Python.test_attraction" />
         <item itemvalue="Python.test_hotel" />
         <item itemvalue="Python.test_restaurant" />
       </list>
@@ -353,22 +363,21 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1185" y="51" width="716" height="975" extended-state="0" />
-    <editor active="true" />
+    <frame x="914" y="51" width="987" height="975" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.82063884" weight="0.19595645" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.82063884" visible="true" weight="0.23814541" />
       <window_info id="Structure" order="1" sideWeight="0.17936118" side_tool="true" weight="0.19595645" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.42976192" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.42976192" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39869282" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.3297619" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -414,6 +423,23 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/venv/Scripts/tmp.py" />
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/zipfile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="1181" selection-start-line="1181" selection-end-line="1181" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Scripts/parsingAttractions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3248">
+          <caret line="127" column="44" selection-start-line="127" selection-start-column="44" selection-end-line="127" selection-end-column="44" />
+          <folding>
+            <element signature="e#24#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/venv/Scripts/test_hotel.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1288">
@@ -424,34 +450,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Scripts/test_shopping.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4452">
-          <caret line="170" selection-start-line="170" selection-end-line="170" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/venv/Scripts/test_restaurant.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="56">
           <caret line="13" selection-start-line="13" selection-end-line="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Scripts/testcase.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Scripts/parsingAttractions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3556">
-          <caret line="127" column="44" selection-start-line="127" selection-start-column="44" selection-end-line="127" selection-end-column="44" />
-          <folding>
-            <element signature="e#24#55#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -465,17 +467,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Scripts/parser.py">
+    <entry file="file://$PROJECT_DIR$/venv/Scripts/test_shopping.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="205">
-          <caret line="70" column="35" selection-start-line="70" selection-start-column="35" selection-end-line="70" selection-end-column="35" />
+          <caret line="173" column="38" lean-forward="true" selection-start-line="173" selection-start-column="38" selection-end-line="173" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Scripts/testcase.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="31" column="70" selection-start-line="31" selection-start-column="70" selection-end-line="31" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Scripts/parser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="235" lean-forward="true" selection-start-line="235" selection-end-line="235" />
           <folding>
             <element signature="e#24#55#0" expanded="true" />
             <element signature="e#324#840#0" />
             <element signature="e#872#1060#0" />
-            <element signature="e#1575#2696#0" />
-            <element signature="e#2727#3311#0" />
-            <element signature="e#3346#4924#0" />
           </folding>
         </state>
       </provider>

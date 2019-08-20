@@ -171,7 +171,7 @@ def get_content_shopping(link):
 
 
     # img url
-    patten = "data-lazyurl=\".*?jpg"
+    patten = "data-lazyurl=\".*?\.jpg"
     r = re.compile(patten)
     results = r.findall(string)
     img_url = results[0]

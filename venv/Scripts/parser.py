@@ -220,20 +220,22 @@ def get_links_shopping(id):
         id_list = str.split(line, ',')
         it = iter(id_list)
         concated_list = []
-        for i in range(10):
+        for i in id_list:
             pid = next(it)
             concated_list.append(id + '-' + 'd' + pid)
-        return concated_list
 
-    results = results[:10]
-    # id list return
-    concated_list = []
-    for i in range(10):
-        pid = results[i]
-        pid = pid[9:-3]
-        concated_list.append(id + '-' + 'd' + pid)
+
+    else:
+        results = results[:10]
+        # id list return
+        concated_list = []
+        for i in range(10):
+            pid = results[i]
+            pid = pid[9:-3]
+            concated_list.append(id + '-' + 'd' + pid)
 
     return concated_list
+
 
 def get_content_shopping(link):
     url = "https://www.tripadvisor.com/Attraction_Review-" + link
@@ -248,18 +250,23 @@ def get_content_shopping(link):
     results = r.findall(string)
     pname = results[0]
     pname = pname[17:]
+
     pname = pname.encode('utf-8')
     pname = pname.decode('unicode_escape')
     pname = pname.encode('utf-8')
     pname = pname.decode('unicode_escape')
+
     pname = str(html.unescape(pname))
 
     # img url
-    patten = "data-lazyurl=\".*?jpg"
+    patten = "data-lazyurl=\".*?\.jpg"
     r = re.compile(patten)
     results = r.findall(string)
-    img_url = results[0]
-    img_url = img_url[14:]
+    if len(results)==0:
+        img_url ="https://us.123rf.com/450wm/kurita/kurita1507/kurita150700011/42167824-%ED%9D%B0-%EB%B0%94%ED%83%95.jpg?ver=6"
+    else:
+        img_url = results[0]
+        img_url = img_url[14:]
 
     dic = {
         'name':pname,
