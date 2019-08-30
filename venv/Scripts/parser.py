@@ -50,7 +50,7 @@ def print_imgUrls(list_):
 
 
 def get_links_attraction(id):
-    print("link..........")
+    print("attraction link..........")
 
     r = requests.get("https://www.tripadvisor.com/Attractions-" + id + "-Activities-a_allAttractions.true")
     soup = BeautifulSoup(r.text, "html.parser")
@@ -62,17 +62,17 @@ def get_links_attraction(id):
     pids = r.findall(str(soup))
     for pid in pids:
         pid_list.append(id + '-' + 'd' + pid[17:])
-    pid_list = pid_list[:10]
+    pid_list = pid_list[:15]
 
     if len(pid_list) == 0:
         pattern = "\"id\":[0-9]+,\"name\""
         r = re.compile(pattern)
         pid_list = []
         pids = r.findall(str(soup))
-        for pid in pids:
+        for pid in pids[4:19]:
             pid_list.append(id + '-' + 'd' + pid[5:-7])
-        pid_list = pid_list[4:14]
 
+    pid_list = list(set(pid_list))[:10]
     return pid_list
 
 def get_content_attraction(link):
@@ -138,10 +138,10 @@ def get_links_hotel(id):
     # id list return
     it = iter(id_list)
     concated_list = []
-    for i in range(10):
+    for _ in range(15):
         pid = next(it)
         concated_list.append(id + '-' + 'd' + pid)
-
+    concated_list = list(set(concated_list))[:10]
     return concated_list
 
 def get_content_hotel(link):
@@ -220,22 +220,21 @@ def get_links_shopping(id):
         id_list = str.split(line, ',')
         it = iter(id_list)
         concated_list = []
-        for i in id_list:
+        for i in id_list[:15]:
             pid = next(it)
             concated_list.append(id + '-' + 'd' + pid)
 
 
     else:
-        results = results[:10]
+        results = results[:15]
         # id list return
         concated_list = []
-        for i in range(10):
+        for i in range(15):
             pid = results[i]
             pid = pid[9:-3]
             concated_list.append(id + '-' + 'd' + pid)
-
+    concated_list = list(set(concated_list))[:10]
     return concated_list
-
 
 def get_content_shopping(link):
     url = "https://www.tripadvisor.com/Attraction_Review-" + link
@@ -245,8 +244,8 @@ def get_content_shopping(link):
     for item in soup:
         string = string + str(item)
     # name parsing
-    patten = "{\"data\":{\"name\":\"[^\"]+"
-    r = re.compile(patten)
+    pattern = "{\"data\":{\"name\":\"[^\"]+"
+    r = re.compile(pattern)
     results = r.findall(string)
     pname = results[0]
     pname = pname[17:]
@@ -259,8 +258,8 @@ def get_content_shopping(link):
     pname = str(html.unescape(pname))
 
     # img url
-    patten = "data-lazyurl=\".*?\.jpg"
-    r = re.compile(patten)
+    pattern = "data-lazyurl=\".*?\.jpg"
+    r = re.compile(pattern)
     results = r.findall(string)
     if len(results)==0:
         img_url ="https://us.123rf.com/450wm/kurita/kurita1507/kurita150700011/42167824-%ED%9D%B0-%EB%B0%94%ED%83%95.jpg?ver=6"
@@ -288,16 +287,16 @@ def get_links_restaurant(id):
     pattern = '\"LocationInformation\",\"locationId\":.*?,'
     r = re.compile(pattern)
     results = r.findall(string)
-    results = results[:10]
+    results = list(set(results))
+    results = results[:15]
 
     # id list return
     concated_list = []
-    for i in range(10):
-        pid = results[i]
+    for pid in results:
         pid = pid[35:-2]
         concated_list.append(id + '-' + 'd' + pid)
 
-
+    concated_list = list(set(concated_list))[:10]
     return concated_list
 
 def get_content_restaurant(link):
@@ -374,6 +373,7 @@ if __name__=='__main__':
 
 
     # intent 파일에 텍스트 넣기
+
     attractions_origin = 'C:/Users/k/Desktop/tour_json/tour_origin/intents/attractions.json'
     hotels_origin = 'C:/Users/k/Desktop/tour_json/tour_origin/intents/hotels.json'
     shopping_origin = 'C:/Users/k/Desktop/tour_json/tour_origin/intents/shopping.json'
